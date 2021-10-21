@@ -2,7 +2,7 @@
 
 ----------------------------------------------------------
 
-## Write an Infrastructure as code using Terraform:
+## Writing an Infrastructure as code using Terraform:
 
 1.  Configure the Provider: To do this step you need to have AWS-CLI signed in. To know more about how to do it please check how to launch ec2."
 ```terraform
@@ -76,11 +76,6 @@ tags = {
         port    = 22
         private_key = tls_private_key.webserver_private_key.private_key_pem
     }
-  provisioner "remote-exec" {
-        inline = [
-        "sudo yum install httpd php git -y",
-        "sudo systemctl start httpd",
-        "sudo systemctl enable httpd",
         ]
     }
 }
@@ -122,20 +117,22 @@ $ terraform destroy -auto-approve
 ## Get the application code: 
 - Use git to clone the repository to your local machine:
 ```git
-git clone https://github.com/JasonHaley/hello-python.git
+https://github.com/adiboy17/atstask.git
 ```
 - Change to the app directory:
 ```git
-cd hello-python/app
+cd /app
 ```
 - There are only two files in this directory. If you look at the main.py file, you’ll see the application prints out a hello message.
 ```git
 from flask import Flask
+import subprocess as sp
 app = Flask(__name__)
 
 @app.route("/")
 def hello():
-    return "Hello from Python!"
+    output = sp.getoutput('echo $ATC_USERNAME' \n 'echo $ATC_PASSWORD')
+    print(output)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0')
